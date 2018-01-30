@@ -1,4 +1,5 @@
 import ru.madhouse.Neuron;
+import ru.madhouse.Synaps;
 import java.util.Random;
 
 public class Main {
@@ -10,17 +11,40 @@ public class Main {
 	public static void main(String[] args)	 {
 		System.out.println("Main.main is started");
 
+		byte s1, s2, res;
+
+		s1 = (byte) 0xfe;
+		s2 = (byte) 0xf;
+
+		res = (byte) (s1 + s2);
+
+		System.out.printf("result: %x%n", res);
+
+		System.out.printf("s1: %d s2: %x%n", (s1 & 0xff), s2);
+
+		if ((s1 & 0xff) > (s2 & 0xff))
+			System.out.printf("%x is largest than %x%n", s1, s2);
+		else
+			System.out.printf("%x is smalest than %x%n", s1, s2);
+
+
 		//Random rnd = new Random();
 
-		byte[] arr; // = new byte[MAX_ARRAY_SIZE];
+		//byte[] arr; // = new byte[MAX_ARRAY_SIZE];
 
-		arr[0] = new Object();
-		arr[0] = 0x1;
+		//arr[0] = new Object();
+		//arr[0] = 0x1;
 
 
 		for (int cou = 0; cou < MAX_ARRAY_SIZE; cou++)
 			neuronNetwork[cou] = new Neuron();
 			
+
+		Synaps s = new Synaps(0);
+
+		s.setSignal((byte) 0xff);
+
+		System.out.printf("%d", s.getSignal());
 
 		/*byte ss1, ss0;
 
