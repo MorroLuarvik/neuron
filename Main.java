@@ -37,7 +37,7 @@ public class Main {
 
 
 		for (int cou = 0; cou < MAX_ARRAY_SIZE; cou++) {
-			neuronNetwork[cou] = new Neuron();
+			neuronNetwork[cou] = new Neuron(MAX_ARRAY_SIZE);
 			//neuronNetwork[cou].print();
 		}
 		
@@ -48,8 +48,8 @@ public class Main {
 
 		neuronNetwork[0].print();
 
-		neuronNetwork[0].setSignal(1, (byte) 0x4a);
+		neuronNetwork[1].setSignal(1, (byte) 0xe0);
 
-		neuronNetwork[0].print();
+		neuronNetwork[1].print();
 	}
 }

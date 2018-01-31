@@ -2,6 +2,7 @@ package ru.madhouse;
 
 public class Neuron {
 	private static int counterId;
+	
 	protected int id;
 	protected Synaps synapses;
 
@@ -21,31 +22,29 @@ public class Neuron {
 		}		
 	} 
 	
-
 	public void setSignal(int sourceId, byte signalStrength) {
 		Synaps curSynaps;
 
-		if (hasSynaps(sourceId)) {
+		if (hasSynaps(sourceId))
 			curSynaps = getSynaps(sourceId);
-			curSynaps.setSignal((byte) signalStrength);
+		else 
+			curSynaps = new Synaps(sourceId);
 
-			return;
-		}
-
-		curSynaps = new Synaps(sourceId);
+		
 		curSynaps.setSignal((byte) signalStrength);
 
-		if (synapses == null) {
+		if (synapses == null)
 			synapses = curSynaps;
-
-			return;
-		}
-		
-		getLastSynaps().setNext(curSynaps);
+		else if (!hasSynaps(sourceId))
+			getLastSynaps().setNext(curSynaps);
 	}
 
 	public int getId() {
 		return id;
+	}
+	
+	public byte execute() {
+		return (byte) 0xff;
 	}
 
 	protected boolean hasSynaps(int sourceId) {
@@ -87,7 +86,4 @@ public class Neuron {
 		return next;
 	}
 
-	public byte execute() {
-		return (byte) 0xff;
-	}
 }

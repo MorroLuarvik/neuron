@@ -3,18 +3,19 @@ package ru.madhouse;
 import java.util.Random;
 
 public class Synaps {
+	protected static final int MAX_VAL = 255;
 	protected int sourceId;
 	protected byte weight; // signed byte
-	protected short history;
+	protected short history; // unsigned world
 
-	private byte signal;
-	protected Synaps next;
+	private byte signal;	// unsigned byte
+	protected Synaps next;	// link 2 next synaps
 
 	final static byte forgetingSpeed = 1;
 
 	public Synaps(int sourceId) {
 		Random rnd = new Random();
-		weight = (byte) rnd.nextInt(256);
+		weight = (byte) rnd.nextInt(MAX_VAL);
 
 		this.sourceId = sourceId;
 	}
@@ -63,7 +64,7 @@ public class Synaps {
 				ret += signal;
 		}
 
-		if ((int) forgetingSpeed > (int) history)
+		if ((int) (forgetingSpeed & 0xff) > (int) (history & 0xffff))
 			history = 0;
 		else
 			history -= forgetingSpeed;
