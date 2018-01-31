@@ -19,6 +19,10 @@ public class Synaps {
 		this.sourceId = sourceId;
 	}
 
+	public void print() {
+		System.out.printf("Synaps: sourceId: %d, weight: %d, history: %x%n", sourceId, weight, history);
+	}
+
 	public int getSourceId() {
 		return sourceId;
 	}
@@ -32,10 +36,11 @@ public class Synaps {
 	}
 
 	public void setSignal(byte signal) {
-		if ((history + signal) > 0xffff)
+		if (((history & 0xffff) + (signal & 0xff)) > 0xffff)
 			history = (short) 0xffff;
-		else
-			history = (short) (history + signal);
+		else {
+			history = (short) ((history & 0xffff) + (signal & 0xff));
+		}
 
 		this.signal = signal;
 	}
@@ -45,7 +50,10 @@ public class Synaps {
 
 		byte shift = weight;
 		if ((weight & 0x80) == 0x80) {
-			shift = (byte) ((~ weight) + 0); // -128 is too large
+			if (weight == (byte) 0x80)
+				shift = 0x7f;
+			else
+				shift = (byte) ((~ weight) + 1);
 		}
 
 		for (int i = 0; i < 7; i++) {

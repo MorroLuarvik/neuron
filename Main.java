@@ -36,33 +36,20 @@ public class Main {
 		//arr[0] = 0x1;
 
 
-		for (int cou = 0; cou < MAX_ARRAY_SIZE; cou++)
+		for (int cou = 0; cou < MAX_ARRAY_SIZE; cou++) {
 			neuronNetwork[cou] = new Neuron();
-			
+			//neuronNetwork[cou].print();
+		}
+		
 
-		Synaps s = new Synaps(0);
+		neuronNetwork[0].setSignal(0, (byte) 0x10);
+		neuronNetwork[0].setSignal(1, (byte) 0x7e);
+		neuronNetwork[0].setSignal(2, (byte) 0xff);
 
-		s.setSignal((byte) 0xff);
+		neuronNetwork[0].print();
 
-		System.out.printf("%d", s.getSignal());
+		neuronNetwork[0].setSignal(1, (byte) 0x4a);
 
-		/*byte ss1, ss0;
-
-		ss1 = (byte) 0xfa;
-
-		ss0 = (byte) 0xf9;
-
-		if (ss1 > ss0)
-			System.out.println(ss1 + " is large than " + ss0);
-
-		System.out.printf("%x is large than %x%n", ss1, ss0);
-
-		for (int cou = 0; cou < arr.length; cou++) {
-			String aleft = "";
-			if (arr[cou] == (byte) 0xff)
-				aleft = "alert!";
-			System.out.printf("[%s] : %x %s%n", cou, arr[cou], aleft);
-		}*/
-
+		neuronNetwork[0].print();
 	}
 }
