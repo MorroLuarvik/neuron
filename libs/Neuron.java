@@ -64,7 +64,6 @@ public class Neuron {
 			return synapses;
 		}
 
-
 		Synaps next = synapses;
 		
 		while (next != null) {
