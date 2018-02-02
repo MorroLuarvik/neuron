@@ -1,9 +1,10 @@
 package ru.madhouse;
 
+import ru.madhouse.ByteOps;
 import java.util.Random;
 
 public class Synaps {
-	protected static final int MAX_VAL = 255;
+	protected static final int MAX_VAL = 255; // 256 eq -128, but weight must be from -127 to 127, bec - 255
 	protected int sourceId;
 	protected byte weight; // signed byte
 	protected short history; // unsigned world
@@ -11,7 +12,7 @@ public class Synaps {
 	private byte signal;	// unsigned byte
 	protected Synaps next;	// link 2 next synaps
 
-	final static byte forgetingSpeed = 1;
+	final static byte forgettingRate = 1;
 
 	public Synaps(int sourceId) {
 		Random rnd = new Random();
@@ -37,11 +38,7 @@ public class Synaps {
 	}
 
 	public void setSignal(byte signal) {
-		if (((history & 0xffff) + (signal & 0xff)) > 0xffff)
-			history = (short) 0xffff;
-		else {
-			history = (short) ((history & 0xffff) + (signal & 0xff));
-		}
+		history = ByteOps.addUnSigned(history, signal);
 
 		this.signal = signal;
 	}
@@ -64,10 +61,7 @@ public class Synaps {
 				ret += signal;
 		}
 
-		if ((int) (forgetingSpeed & 0xff) > (int) (history & 0xffff))
-			history = 0;
-		else
-			history -= forgetingSpeed;
+		history = ByteOps.subUnSigned(history, forgettingRate);
 
 		if ((weight & 0x80) == 0x80)
 			return -ret;

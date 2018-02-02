@@ -1,5 +1,7 @@
 import ru.madhouse.Neuron;
 import ru.madhouse.Synaps;
+import ru.madhouse.ByteOps;
+
 import java.util.Random;
 
 public class Main {
@@ -11,21 +13,22 @@ public class Main {
 	public static void main(String[] args)	 {
 		System.out.println("Main.main is started");
 
-		byte s1, s2, res;
+		byte s1, res;
+		byte s2;
 
-		s1 = (byte) 0xfe;
-		s2 = (byte) 0xf;
+		s1 = (byte) 0xa0;
+		s2 = (byte) 0x6;
 
-		res = (byte) (s1 + s2);
+		res = ByteOps.subUnSigned(s1, s2);
 
-		System.out.printf("result: %x%n", res);
+		System.out.printf("%x - %x = %x%n", s1, s2, res);
 
-		System.out.printf("s1: %d s2: %x%n", (s1 & 0xff), s2);
+		/*System.out.printf("s1: %d s2: %x%n", (s1 & 0xff), s2);
 
 		if ((s1 & 0xff) > (s2 & 0xff))
 			System.out.printf("%x is largest than %x%n", s1, s2);
 		else
-			System.out.printf("%x is smalest than %x%n", s1, s2);
+			System.out.printf("%x is smalest than %x%n", s1, s2);*/
 
 
 		//Random rnd = new Random();
@@ -38,7 +41,7 @@ public class Main {
 
 		for (int cou = 0; cou < MAX_ARRAY_SIZE; cou++) {
 			neuronNetwork[cou] = new Neuron(MAX_ARRAY_SIZE);
-			//neuronNetwork[cou].print();
+			neuronNetwork[cou].print();
 		}
 		
 
